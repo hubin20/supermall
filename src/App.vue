@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-
+    <router-view/>
+    <main-tab-bar/>
   </div>
 </template>
 
 <script>
-import MainTabBar from './components/content/maintabbar/MainTabBar.vue'
+import MainTabBar from '@/components/content/maintabbar/MainTabBar.vue';
 
 export default {
   name: 'App',
@@ -16,5 +17,5 @@ export default {
 </script>
 
 <style>
-@import "@/assets/css/base.css"
+@import "@/assets/css/base.css";
 </style>
