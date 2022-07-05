@@ -14,7 +14,7 @@ export function request(config) {
       return config;
     },
     (err) => {
-      // console.log(err);
+      console.log(err);
     }
   );
 
