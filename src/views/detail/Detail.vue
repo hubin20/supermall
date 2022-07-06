@@ -4,12 +4,14 @@
 -->
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav"/>
+    <detail-nav-bar class="detail-nav" />
     <scroll class="content" ref="scroll">
       <detail-swiper :top-images="topImages" />
       <detai-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
-      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"/>
+      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" />
+      <detial-param-info :paramInfo="paramInfo" />
+      <detail-comment-info :commentInfo="commentInfo"/>
     </scroll>
   </div>
 </template>
@@ -20,6 +22,8 @@ import DetailSwiper from './childComps/DetailSwiper.vue'
 import DetaiBaseInfo from './childComps/DetailBaseInfo.vue'
 import DetailShopInfo from './childComps/DetailShopInfo.vue'
 import DetailGoodsInfo from './childComps/DetailGoodsInfo.vue'
+import DetialParamInfo from './childComps/DetailParamInfo.vue'
+import DetailCommentInfo from './childComps/DetailCommentInfo.vue'
 
 import scroll from '@/components/common/scroll/Scroll.vue'
 
@@ -34,7 +38,9 @@ export default {
     DetaiBaseInfo,
     DetailShopInfo,
     scroll,
-    DetailGoodsInfo
+    DetailGoodsInfo,
+    DetialParamInfo,
+    DetailCommentInfo
   },
   data() {
     return {
@@ -42,7 +48,9 @@ export default {
       topImages: [],
       goods: {},
       shop: {},
-      detailInfo: {}
+      detailInfo: {},
+      paramInfo: {},
+      commentInfo: {}
     }
   },
   computed: {},
@@ -63,6 +71,12 @@ export default {
       this.shop = new Shop(data.shopInfo)
       // 保存商品的详情数据
       this.detailInfo = data.detailInfo
+      //获取商品参数信息
+      this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
+      // 取出评论的信息
+      if (data.rate.cRate !== 0) {
+        this.commentInfo = data.rate.list[0]
+      }
     })
   },
   mounted() { },
@@ -81,10 +95,12 @@ export default {
   background-color: #fff;
   height: 100vh;
 }
+
 .content {
-  height: calc(100% - 44px );
+  height: calc(100% - 44px);
   overflow: hidden;
 }
+
 /* .detail-nav {
   position: relative;
   z-index: 9;
