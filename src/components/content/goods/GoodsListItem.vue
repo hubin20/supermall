@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" alt="">
+    <img :src="showImage" alt="">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -18,6 +18,15 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+  computed: {
+    showImage() {
+      // return  (this.goodsItem.show) ? this.goodsItem.show.img : this.goodsItem.image
+      // console.log(this.goodsItem.show);
+      const index = Object.keys(this.goodsItem).indexOf('show')
+      // console.log(this.goodsItem);
+      return (index !== -1) ? this.goodsItem.show.img : this.goodsItem.image
     }
   },
   methods: {
