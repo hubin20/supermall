@@ -32,6 +32,7 @@ import DetailBottomBar from "./childComps/DetailBottomBar.vue";
 import scroll from "@/components/common/scroll/Scroll.vue";
 import GoodsList from "@/components/content/goods/GoodsList.vue";
 
+
 import {
   getDetail,
   Goods,
@@ -41,6 +42,7 @@ import {
 } from "@/network/detail";
 import { debounce } from "@/common/utils";
 import { BackTopMixin } from "@/common/mixin";
+import {mapActions} from 'vuex'
 
 export default {
   name: "Detail",
@@ -122,8 +124,9 @@ export default {
       // console.log(this.themeTopYs);
     }, 100);
   },
-  mounted() {  },
+  mounted() { },
   methods: {
+    ...mapActions(['addCart']),
     imageLoad() {
       this.$refs.scroll.scroll.refresh();
       this.getThemeTopY();
@@ -152,12 +155,24 @@ export default {
       this.listenShowBackTop(position);
     },
     addToCart() {
+      //获取购物车需要展示的信息
       const product = {};
       product.image = this.topImages[0];
       product.title = this.goods.title;
       product.desc = this.goods.desc;
       product.price = this.goods.realPrice
-      product.iid = this.iid
+      product.iid = this.iid;
+
+      // 将商品添加到购物车里
+      // this.$store.commit('addCart', product)
+      // this.$store.dispatch('addCart',product).then(res => {
+      //   console.log(res);
+      // })
+      this.addCart(product).then(res => {
+        // console.log(res);
+        // this.$toast.show(res,1500)
+        console.log(this.$toast);
+      })
     },
   },
 };
