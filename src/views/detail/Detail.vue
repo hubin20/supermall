@@ -170,8 +170,8 @@ export default {
       // })
       this.addCart(product).then(res => {
         // console.log(res);
-        // this.$toast.show(res,1500)
-        console.log(this.$toast);
+        this.$toast.show(res,1500)
+        // console.log(this.$toast);
       })
     },
   },
